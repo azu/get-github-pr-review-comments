@@ -4,7 +4,7 @@ Get PR review comments.
 
 ![image](https://monosnap.com/file/PId5qghHGtudr8zHoB4ol87b47GFLJ.png)
 
-You can use it in editor like VSCode.
+You can use it in an editor like VSCode.
 The editor can jump to the file path and line. 
 
 ## Install
