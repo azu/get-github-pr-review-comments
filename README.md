@@ -24,9 +24,8 @@ Install with [npm](https://www.npmjs.com/):
         export GH_TOKEN=XXX
         
      Example:
-        get-github-pr-review-comments --repo azu/get-github-pr-review-comments --projectRoot /path/to/get-github-pr-review-comments --token xxx \`git rev-parse HEAD\`
+        get-github-pr-review-comments --repo azu/get-github-pr-review-comments --projectRoot /path/to/get-github-pr-review-comments --token xxx `git rev-parse HEAD`
     
-
 
 ## Changelog
 
