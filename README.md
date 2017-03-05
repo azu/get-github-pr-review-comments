@@ -26,6 +26,15 @@ Install with [npm](https://www.npmjs.com/):
      Example:
         get-github-pr-review-comments --repo azu/get-github-pr-review-comments --projectRoot /path/to/get-github-pr-review-comments --token xxx `git rev-parse HEAD`
     
+## Snippet
+
+Shell script:
+
+      declare repo=$(git config --local remote.origin.url | perl -pe's/(git@|https:\/\/)?github.com(:|\/)(\w+)\/(\w+)(.git)?/$3\/$4/' | sed 's/\.git//g')
+      GH_TOKEN="xxx" get-github-pr-review-comments \
+        --repo "${repo}" \
+        --projectRoot `git rev-parse --show-toplevel` \
+        `git rev-parse HEAD`
 
 ## Changelog
 
