@@ -1,5 +1,6 @@
-// MIT © 2017 azu
 "use strict";
+// MIT © 2017 azu
+const path = require("path");
 const wrapQuote = (body) => {
     return body;
 };
