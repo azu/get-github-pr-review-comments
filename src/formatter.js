@@ -15,5 +15,6 @@ export const format = (comment, options) => {
     const [all, firstLine] = comment.diff_hunk.match(/-(\d+)/);
     const lineNumber = parseInt(firstLine, 10) - 1;
     return `@ ${options.projectRoot}${comment.path}:${lineNumber + comment.original_position}:1
+★ ${comment.html_url.replace(/#.*$/, '#pullrequestreview-')}${comment.pull_request_review_id}
 ${wrapQuote(comment.body.trim())}`
 };
