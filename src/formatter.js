@@ -21,7 +21,7 @@ const rawFormatter = (comment, options) => {
 }
 
 /**
- * @param {object} comment
+ * @param {object} comments
  * @param {object} options
  * @returns {string}
  * @see https://developer.github.com/v3/pulls/comments/#list-comments-on-a-pull-request
