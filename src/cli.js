@@ -15,7 +15,7 @@ import { getFormatter } from "./formatter";
  *  format: string
  * }} flag
  */
-module.exports = function (commitSha, flag) {
+module.exports = function(commitSha, flag) {
     const [owner, repo] = flag.repo.split("/");
     assert(owner && repo, "--repo owner/repo");
     const ghToken = GH_TOKEN || flag.token;

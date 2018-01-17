@@ -28,7 +28,7 @@ const rawFormatter = (comment, options) => {
  */
 const jsonFormatter = (comments, options) => {
     const formatData = comments.data.map(data => {
-        return rawJsonFormatter(data, options);
+        return rawFormatter(data, options);
     });
     return JSON.stringify(formatData, null, "  ");
 };
@@ -41,7 +41,7 @@ const jsonFormatter = (comments, options) => {
  */
 const defaultFormatter = (comments, options) => {
     const formatData = comments.data.map(data => {
-        const js = rawJsonFormatter(data, options);
+        const js = rawFormatter(data, options);
         return `@ ${js.file_path}:${js.line_number}:1
 ★ ${js.review_url}
 ${js.body}`;
