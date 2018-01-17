@@ -16,6 +16,8 @@ const cli = meow(`
         Get from https://github.com/settings/tokens/new
         or
         export GH_TOKEN=XXX
+      --format json
+        (optional) json supported
         
      Example:
         get-github-pr-review-comments --repo azu/get-github-pr-review-comments --projectRoot /path/to/get-github-pr-review-comments --token xxx \`git rev-parse HEAD\`
