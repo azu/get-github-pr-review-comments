@@ -3,7 +3,7 @@
 const assert = require("assert");
 const GH_TOKEN = process.env.GH_TOKEN;
 import GitHubAPI from "./GitHub";
-import {format} from "./formatter";
+import { getFormatter } from "./formatter";
 
 /**
  *
@@ -11,18 +11,21 @@ import {format} from "./formatter";
  * @param {{
  *  token: string,
  *  projectRoot: string,
- *  repo: string
+ *  repo: string,
+ *  format: string
  * }} flag
  */
-module.exports = function(commitSha, flag) {
+module.exports = function (commitSha, flag) {
     const [owner, repo] = flag.repo.split("/");
     assert(owner && repo, "--repo owner/repo");
     const ghToken = GH_TOKEN || flag.token;
     assert(ghToken, "--token xxx or export GH_TOKEN=xxx");
     const projectRoot = flag.projectRoot;
     assert(projectRoot, "--projectRoot /path/to/dir");
+    const outFormat = flag.format;
 
     const github = new GitHubAPI(ghToken);
+    const formatter = getFormatter(outFormat);
     return github.getPR({
         owner: owner,
         repo: repo,
@@ -39,14 +42,11 @@ module.exports = function(commitSha, flag) {
             number: item.number
         });
     }).then(response => {
-        const formatData = response.data.map(data => {
-            return format(data, {
-                owner,
-                repo,
-                projectRoot,
-                commitSha
-            });
+        return formatter(response, {
+            owner,
+            repo,
+            projectRoot,
+            commitSha
         });
-        return formatData.join("\n----\n");
     });
 };
