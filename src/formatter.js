@@ -1,7 +1,7 @@
 "use strict";
 // MIT © 2017 azu
 const path = require("path");
-const wrapQuote = (body) => {
+const wrapQuote = body => {
     return body;
 };
 
@@ -10,18 +10,18 @@ const rawFormatter = (comment, options) => {
     const [all, firstLine] = comment.diff_hunk.match(/-(\d+)/);
     const lineNumber = parseInt(firstLine, 10) - 1 + comment.original_position;
     const filePath = path.join(options.projectRoot, comment.path);
-    const reviewURL = `${comment.html_url.replace(/#.*$/, '#pullrequestreview-')}${comment.pull_request_review_id}`;
+    const reviewURL = `${comment.html_url.replace(/#.*$/, "#pullrequestreview-")}${comment.pull_request_review_id}`;
     const body = wrapQuote(comment.body.trim());
     return {
         file_path: filePath,
         line_number: lineNumber,
         review_url: reviewURL,
-        body: body,
-    }
-}
+        body: body
+    };
+};
 
 /**
- * @param {object} comment
+ * @param {object} comments
  * @param {object} options
  * @returns {string}
  * @see https://developer.github.com/v3/pulls/comments/#list-comments-on-a-pull-request
@@ -30,8 +30,8 @@ const jsonFormatter = (comments, options) => {
     const formatData = comments.data.map(data => {
         return rawJsonFormatter(data, options);
     });
-    return JSON.stringify(formatData, null, '  ');
-}
+    return JSON.stringify(formatData, null, "  ");
+};
 
 /**
  * @param {object} comments
@@ -44,7 +44,7 @@ const defaultFormatter = (comments, options) => {
         const js = rawJsonFormatter(data, options);
         return `@ ${js.file_path}:${js.line_number}:1
 ★ ${js.review_url}
-${js.body}`
+${js.body}`;
     });
     return formatData.join("\n----\n");
 };
@@ -53,9 +53,9 @@ ${js.body}`
  * @param {string} formatFlag
  * @returns {object}
  */
-export const getFormatter = (formatFlag) => {
-    if (formatFlag === 'json') {
+export const getFormatter = formatFlag => {
+    if (formatFlag === "json") {
         return jsonFormatter;
     }
     return defaultFormatter;
-}
+};

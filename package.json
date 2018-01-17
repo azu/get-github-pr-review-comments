@@ -10,7 +10,7 @@
     "src/"
   ],
   "name": "get-github-pr-review-comments",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Get PR review comments.",
   "main": "lib/GitHub.js",
   "bin": {
@@ -19,7 +19,10 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production babel src --out-dir lib --source-maps",
     "watch": "babel src --out-dir lib --watch --source-maps",
-    "prepublish": "npm run --if-present build"
+    "prepublish": "npm run --if-present build",
+    "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,css}\"",
+    "precommit": "lint-staged",
+    "postcommit": "git reset"
   },
   "repository": {
     "type": "git",
@@ -36,11 +39,25 @@
     "babel-preset-power-assert": "^1.0.0",
     "babel-register": "^6.23.0",
     "cross-env": "^3.1.4",
+    "husky": "^0.14.3",
+    "lint-staged": "^6.0.0",
     "mocha": "^3.2.0",
-    "power-assert": "^1.4.2"
+    "power-assert": "^1.4.2",
+    "prettier": "^1.10.2"
   },
   "dependencies": {
     "github": "^9.1.0",
     "meow": "^3.7.0"
+  },
+  "prettier": {
+    "singleQuote": false,
+    "printWidth": 120,
+    "tabWidth": 4
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,css}": [
+      "prettier --write",
+      "git add"
+    ]
   }
 }

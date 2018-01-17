@@ -13,7 +13,6 @@ export default class GitHubClient {
             type: "oauth",
             token: token
         });
-
     }
 
     /**
@@ -23,8 +22,8 @@ export default class GitHubClient {
      * @param {string} commitSha
      * @returns {Promise<{data:Object}>}
      */
-    getPR({owner, repo, commitSha}) {
-        const repoPath = this._createRepoString({owner, repo});
+    getPR({ owner, repo, commitSha }) {
+        const repoPath = this._createRepoString({ owner, repo });
         return this.github.search.issues({
             q: `repo:${repoPath} type:pr ${commitSha}`
         });
@@ -37,11 +36,11 @@ export default class GitHubClient {
      * @param {number} id
      * @returns {Promise<{data:Object}>}
      */
-    getComments({owner, repo, number, id}) {
-        return this.github.pullRequests.getComments({owner, repo, number, id});
+    getComments({ owner, repo, number, id }) {
+        return this.github.pullRequests.getComments({ owner, repo, number, id });
     }
 
-    _createRepoString({owner, repo}) {
+    _createRepoString({ owner, repo }) {
         return `${owner}/${repo}`;
     }
-};
+}
