@@ -21,12 +21,15 @@ const rawFormatter = (comment, options) => {
 };
 
 /**
- * @param {object} comments
+ * @param {object|undefined} comments
  * @param {object} options
  * @returns {string}
  * @see https://developer.github.com/v3/pulls/comments/#list-comments-on-a-pull-request
  */
 const jsonFormatter = (comments, options) => {
+    if (!comments || (comments && !Array.isArray(comments.data))) {
+        return "{}"; // no comments
+    }
     const formatData = comments.data.map(data => {
         return rawFormatter(data, options);
     });
@@ -34,12 +37,15 @@ const jsonFormatter = (comments, options) => {
 };
 
 /**
- * @param {object} comments
+ * @param {object|undefined} comments
  * @param {object} options
  * @returns {string}
  * @see https://developer.github.com/v3/pulls/comments/#list-comments-on-a-pull-request
  */
 const defaultFormatter = (comments, options) => {
+    if (!comments || (comments && !Array.isArray(comments.data))) {
+        return "No comments";
+    }
     const formatData = comments.data.map(data => {
         const js = rawFormatter(data, options);
         return `@ ${js.file_path}:${js.line_number}:1
