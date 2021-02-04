@@ -41,7 +41,8 @@ module.exports = function(commitSha, flag) {
                 owner: owner,
                 repo: repo,
                 id: item.id,
-                number: item.number
+                number: item.number,
+                per_page: 100
             });
         })
         .then(response => {
