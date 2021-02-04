@@ -34,10 +34,11 @@ export default class GitHubClient {
      * @param {string} repo
      * @param {number} number
      * @param {number} id
+     * @param {number} per_page
      * @returns {Promise<{data:Object}>}
      */
-    getComments({ owner, repo, number, id }) {
-        return this.github.pullRequests.getComments({ owner, repo, number, id });
+    getComments({ owner, repo, number, id, per_page }) {
+        return this.github.pullRequests.getComments({ owner, repo, number, id, per_page });
     }
 
     _createRepoString({ owner, repo }) {
