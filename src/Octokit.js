@@ -6,7 +6,6 @@ export default class OctokitClient {
     constructor(token) {
         this.octokit = new Octokit({
             auth: token,
-            timeZone: "Europe/Amsterdam",
             baseUrl: "https://api.github.com",
             request: {
                 timeout: 5000
