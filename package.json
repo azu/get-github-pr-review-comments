@@ -10,7 +10,7 @@
     "src/"
   ],
   "name": "get-github-pr-review-comments",
-  "version": "1.2.2",
+  "version": "1.2.333
   "description": "Get PR review comments.",
   "main": "lib/Octokit.js",
   "bin": {
