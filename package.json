@@ -12,7 +12,7 @@
   "name": "get-github-pr-review-comments",
   "version": "1.2.2",
   "description": "Get PR review comments.",
-  "main": "lib/GitHub.js",
+  "main": "lib/Octokit.js",
   "bin": {
     "get-github-pr-review-comments": "bin/cmd.js"
   },
@@ -46,7 +46,7 @@
     "prettier": "^1.10.2"
   },
   "dependencies": {
-    "github": "^9.1.0",
+    "@octokit/rest": "^18.1.0",
     "meow": "^3.7.0"
   },
   "prettier": {

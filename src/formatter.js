@@ -27,10 +27,10 @@ const rawFormatter = (comment, options) => {
  * @see https://developer.github.com/v3/pulls/comments/#list-comments-on-a-pull-request
  */
 const jsonFormatter = (comments, options) => {
-    if (!comments || (comments && !Array.isArray(comments.data))) {
+    if (!comments || (comments && !Array.isArray(comments))) {
         return "{}"; // no comments
     }
-    const formatData = comments.data.map(data => {
+    const formatData = comments.map(data => {
         return rawFormatter(data, options);
     });
     return JSON.stringify(formatData, null, "  ");
@@ -43,10 +43,10 @@ const jsonFormatter = (comments, options) => {
  * @see https://developer.github.com/v3/pulls/comments/#list-comments-on-a-pull-request
  */
 const defaultFormatter = (comments, options) => {
-    if (!comments || (comments && !Array.isArray(comments.data))) {
+    if (!comments || (comments && !Array.isArray(comments))) {
         return "No comments";
     }
-    const formatData = comments.data.map(data => {
+    const formatData = comments.map(data => {
         const js = rawFormatter(data, options);
         return `@ ${js.file_path}:${js.line_number}:1
 ★ ${js.review_url}

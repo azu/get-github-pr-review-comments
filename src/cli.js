@@ -2,12 +2,12 @@
 "use strict";
 const assert = require("assert");
 const GH_TOKEN = process.env.GH_TOKEN;
-import GitHubAPI from "./GitHub";
+import OctokitAPI from "./Octokit";
 import { getFormatter } from "./formatter";
 
 /**
  *
- * @param {string} commitSha
+ * @param {string} number
  * @param {{
  *  token: string,
  *  projectRoot: string,
@@ -15,41 +15,29 @@ import { getFormatter } from "./formatter";
  *  format: string
  * }} flag
  */
-module.exports = function(commitSha, flag) {
+module.exports = function(number, flag) {
     const [owner, repo] = flag.repo.split("/");
     assert(owner && repo, "--repo owner/repo");
-    const ghToken = GH_TOKEN || flag.token;
-    assert(ghToken, "--token xxx or export GH_TOKEN=xxx");
+    const token = GH_TOKEN || flag.token;
+    assert(token, "--token xxx or export GH_TOKEN=xxx");
     const projectRoot = flag.projectRoot;
     assert(projectRoot, "--projectRoot /path/to/dir");
     const outFormat = flag.format;
 
-    const github = new GitHubAPI(ghToken);
+    const octokit = new OctokitAPI(token);
     const formatter = getFormatter(outFormat);
-    return github
-        .getPR({
+    return octokit
+        .getComments({
             owner: owner,
             repo: repo,
-            commitSha: commitSha
-        })
-        .then(response => {
-            if (response.data.total_count === 0) {
-                return;
-            }
-            const item = response.data.items[0];
-            return github.getComments({
-                owner: owner,
-                repo: repo,
-                id: item.id,
-                number: item.number
-            });
+            number: number
         })
         .then(response => {
             return formatter(response, {
                 owner,
                 repo,
                 projectRoot,
-                commitSha
+                number
             });
         });
 };
